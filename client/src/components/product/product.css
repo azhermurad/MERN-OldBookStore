@@ -1,0 +1,7 @@
+.product-card_body a {
+  font-weight: bolder;
+  text-decoration: none;
+}
+.product-card_body a :hover {
+  text-decoration: underline;
+}
