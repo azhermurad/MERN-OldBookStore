@@ -1,10 +1,18 @@
 const express = require('express');
-const app = express();
-const port = process.env.PORT || 4000;
+const colors = require('colors');
+const dotenv = require('dotenv');
+const dbConnection = require('./src/config/connection');
+dotenv.config();
 
-app.get("/",(req,res)=>{
-    res.send("okay")
-})
-app.listen(port, ()=>{
-    console.log("Application is running on port:",port)
-})
+const app = express();
+// connection to Database
+dbConnection();
+
+app.get('/', (req, res) => {
+    res.send(process.env.MONGODB_URL);
+});
+
+const port = process.env.PORT || 4000;
+app.listen(port, () => {
+    console.log('Application is running on port:'.bgBlue, colors.red(port));
+});
