@@ -8,5 +8,6 @@ const dbConnection = async () => {
         console.log('database is not connected!', error.message);
         process.exit(1);
     }
+    
 };
 module.exports = dbConnection;
