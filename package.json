@@ -7,11 +7,14 @@
         "start": "node app.js",
         "server": "nodemon app.js",
         "client": "npm start --prefix client",
-        "dev": "concurrently \"npm run server\" \"npm run client\""
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "data:import": "node src/seeders",
+        "data:destroy": "node src/seeders delete"
     },
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcryptjs": "^2.4.3",
         "colors": "^1.4.0",
         "dotenv": "^16.0.1",
         "express": "^4.18.1",
