@@ -58,7 +58,7 @@ const productSchema = new Schema(
             required: true,
             default: 0,
         },
-        prize: {
+        price: {
             type: Number,
             required: true,
             default: 0,
