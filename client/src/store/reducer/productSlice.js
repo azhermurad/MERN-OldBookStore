@@ -1,5 +1,5 @@
 // we have to create reducer for product
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
@@ -27,6 +27,7 @@ export const productSlice = createSlice({
     reducers: {
         increment: (state, action) => {
             state.value += action.payload;
+            
         },
     },
     extraReducers: (builder) => {
@@ -44,6 +45,7 @@ export const productSlice = createSlice({
             state.prodcuts = payload.data || [];
         });
         builder.addCase(fetchAllPosts.rejected, (state, { payload }) => {
+            console.log(payload)
             state.loading = false;
             if (payload.status === 'Error' && !payload.data) {
                 state.error = payload.message;
