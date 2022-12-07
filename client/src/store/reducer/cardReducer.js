@@ -14,7 +14,6 @@ export const fetchProductById = createAsyncThunk(
     async ({ id, qty }, { rejectWithValue }) => {
         try {
             const response = await axios(`/api/products/${id}`);
-            console.log(response.data)
             return { data: response.data, id, qty };
         } catch (error) {
             return rejectWithValue(error.response.data);
@@ -24,6 +23,14 @@ export const fetchProductById = createAsyncThunk(
 export const cardSlice = createSlice({
     name: 'card',
     initialState,
+    reducers: {
+        removeCardItem: (state, { payload }) => {
+            state.cardItems = state.cardItems.filter(
+                (item) => item._id !== payload
+            );
+            localStorage.setItem('cardItem', JSON.stringify(state.cardItems));
+        },
+    },
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
 
@@ -39,15 +46,23 @@ export const cardSlice = createSlice({
             const checkItem = current(state).cardItems.find(
                 (a) => a._id === payload.data.data._id
             );
+
             const cardData = {
                 ...payload.data.data,
-                qyt: payload.qty
+                qty: payload.qty,
+            };
+
+            if (checkItem) {
+                state.cardItems = [
+                    ...state.cardItems.map((x) =>
+                        x._id === checkItem._id ? cardData : x
+                    ),
+                ];
+            } else {
+                state.message = 'Item is Add to Card';
+                state.cardItems = [...state.cardItems, cardData];
             }
-            if(!checkItem){
-                state.message = "Item is Add to Card"
-                state.cardItems = [...state.cardItems,cardData]
-            }
-            localStorage.setItem("cardItem",JSON.stringify(state.cardItems))
+            localStorage.setItem('cardItem', JSON.stringify(state.cardItems));
         });
         builder.addCase(fetchProductById.rejected, (state, { payload }) => {
             state.loading = false;
@@ -59,5 +74,7 @@ export const cardSlice = createSlice({
         });
     },
 });
+
+export const { removeCardItem } = cardSlice.actions;
 
 export default cardSlice.reducer;

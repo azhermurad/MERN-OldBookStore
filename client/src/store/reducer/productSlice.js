@@ -45,6 +45,7 @@ export const productSlice = createSlice({
             state.prodcuts = payload.data || [];
         });
         builder.addCase(fetchAllPosts.rejected, (state, { payload }) => {
+            console.log(payload)
             state.loading = false;
             if (payload.status === 'Error' && !payload.data) {
                 state.error = payload.message;

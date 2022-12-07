@@ -15,7 +15,7 @@ const Header = () => {
                 Card
               </Nav.Link>
             </LinkContainer>
-            <LinkContainer to={"/sign-in"}>
+            <LinkContainer to={"/login"}>
               <Nav.Link>
                 <i className="fa fa-user pe-2" aria-hidden="true"></i>Sign In
               </Nav.Link>
