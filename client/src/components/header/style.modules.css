@@ -1,0 +1,15 @@
+.dropdown-item.active {
+    color: #6d6c6c;
+    text-decoration: none;
+    background-color: transparent;
+    font-weight: bolder;
+}
+
+.header-dropdown .icons {
+    padding-right: 5px;
+}
+
+#username::after {
+    vertical-align: middle;
+    margin-left: 5px;
+  }

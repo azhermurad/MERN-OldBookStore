@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import ProductDetailsPage from './pages/ProductDetailsPage';
 import CardPage from './pages/CardPage';
 import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
 
 function App() {
     return (
@@ -20,6 +21,7 @@ function App() {
                         <Route path=':id' element={<CardPage />} />
                     </Route>
                     <Route path='login/' element={<LoginPage />} />
+                    <Route path='register/' element={<SignupPage />} />
                     <Route path='*' element={'Error Page'} />
                 </Route>
             </Routes>
