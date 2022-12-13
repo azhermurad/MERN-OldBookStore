@@ -40,7 +40,8 @@ const SignupPage = () => {
             <h3 className='pb-2'>Sign In</h3>
             {data.error ? <Message text={data.error} /> : null}
             <Form onSubmit={submitHandler}>
-                <CustomInputGroup
+            <CustomInputGroup
+                    value={values.name}
                     label='Name'
                     name='name'
                     type={'text'}
@@ -48,6 +49,7 @@ const SignupPage = () => {
                     onChangeHandler={onChangeHandler}
                 />
                 <CustomInputGroup
+                    value={values.email}
                     label='Email'
                     name='email'
                     type={'email'}
@@ -55,6 +57,7 @@ const SignupPage = () => {
                     onChangeHandler={onChangeHandler}
                 />
                 <CustomInputGroup
+                    value={values.password}
                     label='Password'
                     name='password'
                     type={'password'}

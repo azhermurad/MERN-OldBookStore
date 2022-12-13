@@ -1,7 +1,12 @@
 import { Button, Col, Card, Row, Badge } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import ProductDetaiList from '../product/product_details/ProductDetailLIst';
 
 const Checkout = ({ cardItems }) => {
+    const navigate = useNavigate()
+    const checkoutHandler = () => {
+        navigate("/login?redirect=/shipping")
+    }
     return (
         <Card>
             <ProductDetaiList
@@ -32,7 +37,7 @@ const Checkout = ({ cardItems }) => {
                         </Col>
                     </Row>,
                     <div className='d-grid gap-2'>
-                        <Button type='button' disabled={cardItems.length === 0}>
+                        <Button type='button' disabled={cardItems.length === 0} onClick={checkoutHandler}>
                             Proceed To Checkout
                         </Button>
                     </div>

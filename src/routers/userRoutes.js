@@ -4,11 +4,13 @@ const {
     createUser,
     userLogin,
     userProfile,
+    updateUserPfofile,
 } = require('../controllers/userController');
 const User = require('../models/User');
 const {
     addUserValidation,
     LoginUserValidation,
+    userProfileUpdateValidation,
 } = require('../utill/validataion/userValidation');
 
 const router = express.Router();
@@ -35,5 +37,16 @@ router.get('/api/user', async (req, res) => {
         res.send({ user });
     } catch (error) {}
 });
+
+// @desc user profile update
+// @router Put /api/user/profile
+// @access Private
+
+router.put(
+    '/api/user/profile',
+    auth,
+    userProfileUpdateValidation,
+    updateUserPfofile
+);
 
 module.exports = router;

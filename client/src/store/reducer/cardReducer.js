@@ -7,6 +7,7 @@ const initialState = {
     loading: false,
     error: '',
     message: '',
+    shippingAddress: {},
 };
 
 export const fetchProductById = createAsyncThunk(
@@ -29,6 +30,14 @@ export const cardSlice = createSlice({
                 (item) => item._id !== payload
             );
             localStorage.setItem('cardItem', JSON.stringify(state.cardItems));
+        },
+        addShippingAddress: (state, { payload }) => {
+            console.log("shipping address is store in localhost")
+            state.shippingAddress = payload
+            localStorage.setItem(
+                'shippingAddress',
+                JSON.stringify(state.shippingAddress)
+            );
         },
     },
     extraReducers: (builder) => {
@@ -75,6 +84,6 @@ export const cardSlice = createSlice({
     },
 });
 
-export const { removeCardItem } = cardSlice.actions;
+export const { removeCardItem,addShippingAddress } = cardSlice.actions;
 
 export default cardSlice.reducer;
