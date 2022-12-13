@@ -7,9 +7,11 @@ import userSlice from './reducer/userSlice';
 
 const cardItem = localStorage.getItem('cardItem');
 const user = localStorage.getItem("userInfo");
+const shippingAddress = localStorage.getItem("shippingAddress");
 
 const localStorageCardData = cardItem ? JSON.parse(cardItem) : [];
 const localStorageUserData = user ? JSON.parse(user) : null;
+const localStorageShippingAddress = shippingAddress ? JSON.parse(shippingAddress) : {};
 const store = configureStore({
     reducer: {
         productState: productReducer,
@@ -23,6 +25,7 @@ const store = configureStore({
             loading: false,
             error: '',
             message: '',
+            shippingAddress: localStorageShippingAddress
         },
         userState: {
             user:localStorageUserData,

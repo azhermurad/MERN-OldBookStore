@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
         const user = new User(req.body);
         await user.save();
         const token = await user.generateToken();
-        res.status(200).json({  
+        res.status(200).json({
             status: 'Success',
             message: 'User successfully Created',
             data: { user, token },
@@ -70,12 +70,13 @@ const userLogin = async (req, res) => {
 // @access private
 
 const userProfile = async (req, res) => {
+    
     try {
-      
         const user = await User.findById(req.user._id);
-        res.status(200).json({  
+
+        res.status(200).json({
             status: 'Success',
-            message: 'User successfully Created',
+            message: 'User Profile',
             data: user,
         });
     } catch (error) {
@@ -86,4 +87,34 @@ const userProfile = async (req, res) => {
         });
     }
 };
-module.exports = { createUser, userLogin, userProfile };
+
+const updateUserPfofile = async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({
+            status: 'Error',
+            message: errors.array()[0].msg,
+            data: null,
+        });
+    }
+    try {
+        const { name, password } = req.body;
+        const user = await User.findById(req.user._id);
+        user.name = name || user.name;
+        user.password = password || user.name;
+        await user.save()
+
+        res.status(200).json({
+            status: 'Success',
+            message: 'User User Profile Updated',
+            data: user,
+        });
+    } catch (error) {
+        res.status(500).json({
+            status: 'Error',
+            message: 'Something Went Wrong! Please Try Again',
+            data: null,
+        });
+    }
+};
+module.exports = { createUser, userLogin, userProfile, updateUserPfofile };

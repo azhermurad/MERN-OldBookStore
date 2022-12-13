@@ -1,8 +1,16 @@
 const { check } = require('express-validator');
 const User = require('../../models/User');
 
-const addUserValidation = [
+const userProfileUpdateValidation = [
     check('name').trim().not().isEmpty().withMessage('Name is required'),
+    check('password')
+        .trim()
+        .isLength({ min: 5 })
+        .withMessage('password must be 5+ chars long'),
+];
+
+const addUserValidation = [
+    ...userProfileUpdateValidation,
     check('email')
         .isEmail()
         .withMessage('please provide a valid email address')
@@ -13,10 +21,6 @@ const addUserValidation = [
                 }
             });
         }),
-    check('password')
-        .trim()
-        .isLength({ min: 5 })
-        .withMessage('password must be 5+ chars long'),
 ];
 
 const LoginUserValidation = [
@@ -31,5 +35,6 @@ const LoginUserValidation = [
 
 module.exports = {
     addUserValidation,
-    LoginUserValidation
+    LoginUserValidation,
+    userProfileUpdateValidation,
 };

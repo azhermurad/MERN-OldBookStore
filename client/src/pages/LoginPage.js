@@ -6,10 +6,9 @@ import FormContainer from '../components/Form/FormContainer';
 import CustomInputGroup from '../components/Form/InputGroup';
 import Message from '../components/message/Message';
 import { loginUsers } from '../store/reducer/userSlice';
-
 const LoginPage = () => {
     const data = useSelector((state) => state.userState);
-    let location = useLocation();
+    const  location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [values, setValues] = useState({
@@ -20,7 +19,6 @@ const LoginPage = () => {
     const redirect = location.search
         ? location.search.split('=')[1]
         : '/profile';
-
     useEffect(() => {
         if (data.user) {
             navigate(redirect);
@@ -40,6 +38,7 @@ const LoginPage = () => {
             {data.error ? <Message text={data.error} /> : null}
             <Form onSubmit={submitHandler}>
                 <CustomInputGroup
+                    value={values.email}
                     label='Email'
                     name='email'
                     type={'email'}
@@ -47,6 +46,7 @@ const LoginPage = () => {
                     onChangeHandler={onChangeHandler}
                 />
                 <CustomInputGroup
+                    value={values.password}
                     label='Password'
                     name='password'
                     type={'password'}

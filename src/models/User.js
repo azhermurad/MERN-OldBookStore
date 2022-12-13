@@ -30,7 +30,10 @@ const userSchema = new Schema(
 // hash password before save it
 userSchema.pre('save', async function () {
     const user = this;
-    user.password = await bcrypt.hash(user.password, 10);
+    if (user.isModified('password')){
+        console.log("password is change")
+        user.password = await bcrypt.hash(user.password, 10);
+    }
 });
 
 userSchema.methods.isUserExist = async function () {

@@ -6,7 +6,7 @@ import Loader from '../components/loader/Loader';
 import Message from '../components/message/Message';
 import CardItem from '../components/shoppingCard/CardItem';
 import Checkout from '../components/shoppingCard/Checkout';
-import { fetchProductById,removeCardItem } from '../store/reducer/cardReducer';
+import { fetchProductById, removeCardItem } from '../store/reducer/cardReducer';
 
 const CardPage = (props) => {
     const { id } = useParams();
@@ -14,7 +14,7 @@ const CardPage = (props) => {
     const qty = Number(search.split('=')[1]);
     const card = useSelector((state) => state.cardState);
     const dispatch = useDispatch();
-    const { cardItems, message,loading } = card;
+    const { cardItems, message, loading } = card;
 
     useEffect(() => {
         if (id) {
@@ -23,16 +23,17 @@ const CardPage = (props) => {
     }, [dispatch, id, qty]);
 
     const removeCardItemHandler = (id) => {
-        dispatch(removeCardItem(id))
+        dispatch(removeCardItem(id));
     };
 
     return (
         <>
             {
                 <Row>
+                    {loading && <Loader />}
                     {message && <Message text={message} variant='success' />}
                     <Col md={8}>
-                        <h1>Shopping Card</h1>
+                        <h1>Shopping Card </h1>
                         {cardItems.length === 0 ? (
                             <Message text={`Your Card is empty`}>
                                 <Link to='/'>Go Back</Link>

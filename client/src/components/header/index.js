@@ -40,7 +40,7 @@ const Header = () => {
                                 <LinkContainer to={'/profile'}>
                                     <NavDropdown.Item>
                                         <i
-                                            class='fa fa-user icons'
+                                            className='fa fa-user icons'
                                             aria-hidden='true'
                                         ></i>
                                         Profile
@@ -48,7 +48,7 @@ const Header = () => {
                                 </LinkContainer>
                                 <NavDropdown.Item onClick={logoutHandler}>
                                     <i
-                                        class='fa fa-sign-out icons'
+                                        className='fa fa-sign-out icons'
                                         aria-hidden='true'
                                     ></i>
                                     Logout
