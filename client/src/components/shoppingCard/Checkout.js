@@ -1,4 +1,4 @@
-import { Button, Col, Card, Row, Badge } from 'react-bootstrap';
+ import { Button, Col, Card, Row, Badge } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import ProductDetaiList from '../product/product_details/ProductDetailLIst';
 

@@ -85,3 +85,6 @@ const ShippigPage = () => {
     );
 };
 export default ShippigPage;
+
+
+// in the shipping page we have store the shipping address in the gobal state and in local storage as well..

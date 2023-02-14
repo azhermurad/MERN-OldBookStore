@@ -8,6 +8,7 @@ const initialState = {
     error: '',
     message: '',
     shippingAddress: {},
+    paymentMethod: ''
 };
 
 export const fetchProductById = createAsyncThunk(
@@ -38,6 +39,13 @@ export const cardSlice = createSlice({
                 'shippingAddress',
                 JSON.stringify(state.shippingAddress)
             );
+        },
+        addPaymentMethod: (state, { payload }) => {
+            state.paymentMethod = payload
+            // localStorage.setItem(
+            //     '',
+            //     JSON.stringify(state.shippingAddress)
+            // );
         },
     },
     extraReducers: (builder) => {
@@ -84,6 +92,6 @@ export const cardSlice = createSlice({
     },
 });
 
-export const { removeCardItem,addShippingAddress } = cardSlice.actions;
+export const { removeCardItem,addShippingAddress,addPaymentMethod } = cardSlice.actions;
 
 export default cardSlice.reducer;

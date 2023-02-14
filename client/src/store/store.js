@@ -25,7 +25,8 @@ const store = configureStore({
             loading: false,
             error: '',
             message: '',
-            shippingAddress: localStorageShippingAddress
+            shippingAddress: localStorageShippingAddress,
+            paymentMethod: ''
         },
         userState: {
             user:localStorageUserData,
