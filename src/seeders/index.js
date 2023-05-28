@@ -10,6 +10,9 @@ const dbConnection = require('../config/connection');
 dotenv.config();
 dbConnection();
 
+
+// we have to make this function to payment  the books which is the order in the database so that the user can payment the order and buy the order by click on the button 
+
 const importSeeder = async () => {
     try {
         // delete all the users

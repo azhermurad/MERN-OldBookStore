@@ -24,7 +24,7 @@ const Product = ({ product }) => {
           <Card.Text className="py-3" as="div">
             <Rating rating={product.rating} numReviews={product.numReviews} />
           </Card.Text>
-          <Card.Text as="h3">${product.price}</Card.Text>
+          <Card.Text as="h3">PKR {product.price}</Card.Text>
         </Card.Body>
       </Card>
     </>

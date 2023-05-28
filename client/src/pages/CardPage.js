@@ -15,7 +15,7 @@ const CardPage = (props) => {
     const card = useSelector((state) => state.cardState);
     const dispatch = useDispatch();
     const { cardItems, message, loading } = card;
-
+console.log(cardItems)
     useEffect(() => {
         if (id) {
             dispatch(fetchProductById({ id, qty }));
@@ -40,8 +40,9 @@ const CardPage = (props) => {
                             </Message>
                         ) : (
                             <ListGroup variant='flush'>
-                                {cardItems.map((item) => (
+                                {cardItems.map((item, index) => (
                                     <CardItem
+                                        key={index}
                                         item={item}
                                         click={removeCardItemHandler}
                                     />

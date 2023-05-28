@@ -2,18 +2,22 @@ import { Navbar, Container, Nav, NavDropdown } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { userListReset } from '../../store/reducer/adminSlice';
+import { resetOrder } from '../../store/reducer/orderSlice';
 import { userLogout } from '../../store/reducer/userSlice';
 import './style.modules.css';
 
 const Header = () => {
     const { user } = useSelector((state) => state.userState);
-    const dispatch = useDispatch()
+
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const logoutHandler = () => {
-      dispatch(userLogout())
-      navigate('/login');
-
-    }
+        dispatch(userLogout());
+        dispatch(resetOrder());
+        dispatch(userListReset());
+        navigate('/login');
+    };
     return (
         <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
             <Container>
@@ -28,7 +32,7 @@ const Header = () => {
                                     className='fa fa-shopping-cart pe-2'
                                     aria-hidden='true'
                                 ></i>
-                                Card
+                                Cart
                             </Nav.Link>
                         </LinkContainer>
                         {user ? (
@@ -65,6 +69,40 @@ const Header = () => {
                                 </Nav.Link>
                             </LinkContainer>
                         )}
+                        {user && user.isAdmin ? (
+                            <NavDropdown
+                                className='header-dropdown'
+                                title={'admin'}
+                                id='username'
+                            >
+                                <LinkContainer to={'/admin/userlist'}>
+                                    <NavDropdown.Item>
+                                        <i
+                                            className='fa fa-user icons'
+                                            aria-hidden='true'
+                                        ></i>
+                                        UserList
+                                    </NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to={'/admin/orderlist'}>
+                                    <NavDropdown.Item>
+                                        
+                                      
+                                        <i className="fa fa-list icons"></i>
+                                        OrderList
+                                    </NavDropdown.Item>
+                                </LinkContainer>
+                                <LinkContainer to={'/admin/productlist'}>
+                                    <NavDropdown.Item>
+                                        <i
+                                            className='fa fa-list icons'
+                                            aria-hidden='true'
+                                        ></i>
+                                        ProductList
+                                    </NavDropdown.Item>
+                                </LinkContainer>
+                            </NavDropdown>
+                        ) : null}
                     </Nav>
                 </Navbar.Collapse>
             </Container>

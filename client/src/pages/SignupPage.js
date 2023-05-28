@@ -37,7 +37,7 @@ const SignupPage = () => {
     };
     return (
         <FormContainer>
-            <h3 className='pb-2'>Sign In</h3>
+            <h3 className='pb-2'>Sign Up</h3>
             {data.error ? <Message text={data.error} /> : null}
             <Form onSubmit={submitHandler}>
             <CustomInputGroup

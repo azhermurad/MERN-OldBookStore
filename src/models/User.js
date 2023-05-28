@@ -68,5 +68,24 @@ userSchema.statics.findByCredentials = async (res, email, password) => {
     return user;
 };
 
+
+userSchema.virtual('products', {
+    ref: 'Product',
+    localField: '_id',
+    foreignField: 'userId',
+    // match: { archived: false } // match option with basic query selector
+  });
+
+  userSchema.set('toObject', { virtuals: true });
+userSchema.set('toJSON', { virtuals: true,
+    transform: function (doc, ret) {
+        delete ret.password;
+        delete ret.tokens;
+        // ret.places.forEach(element => {
+        //     //  we can also delete the element from here to control the flow of the program
+        // });
+        return ret;
+      } });
+
 const User = model('User', userSchema);
 module.exports = User;

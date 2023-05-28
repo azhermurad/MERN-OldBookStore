@@ -1,4 +1,4 @@
-import { Button, Col, Card, Row, Badge } from 'react-bootstrap';
+ import { Button, Col, Card, Row, Badge } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import ProductDetaiList from '../product/product_details/ProductDetailLIst';
 
@@ -27,13 +27,13 @@ const Checkout = ({ cardItems }) => {
                             <strong>TOTAL:</strong>
                         </Col>
                         <Col>
-                            $
+                            
                             {cardItems
                                 .reduce(
                                     (x, item) => x + item.qty * item.price,
                                     0
                                 )
-                                .toFixed(2)}
+                                .toFixed(2)} PKR
                         </Col>
                     </Row>,
                     <div className='d-grid gap-2'>

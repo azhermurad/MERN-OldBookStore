@@ -17,7 +17,7 @@ const Rating = ({ rating, numReviews, color }) => {
           }
         ></i>
       ))}
-      <span>{" "}{numReviews} Reviews</span>
+     {numReviews &&  <span>{" "}{numReviews} Reviews</span>}
     </div>
   );
 };
@@ -29,7 +29,7 @@ Rating.defaultProps = {
 
 Rating.propTypes = {
   rating: PropTypes.number.isRequired,
-  numReviews: PropTypes.number.isRequired,
+  numReviews: PropTypes.number,
   color: PropTypes.string,
 };
 export default Rating;

@@ -23,6 +23,21 @@ const addUserValidation = [
         }),
 ];
 
+const EditUserByAdmin =  [
+    check('name').trim().not().isEmpty().withMessage('Name is required'),
+    check('email')
+        .isEmail()
+        .withMessage('please provide a valid email address')
+        .custom((value) => {
+            return User.findOne({ email: value }).then((user) => {
+                if (user) {
+                    return Promise.reject('E-mail already in use');
+                }
+            });
+        }),
+];
+
+
 const LoginUserValidation = [
     check('email')
         .isEmail()
@@ -37,4 +52,5 @@ module.exports = {
     addUserValidation,
     LoginUserValidation,
     userProfileUpdateValidation,
+    EditUserByAdmin
 };
