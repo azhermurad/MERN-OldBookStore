@@ -18,7 +18,7 @@ const AddToCard = ({ price, countInStock }) => {
                         <Col>
                             <strong>Price:</strong>
                         </Col>
-                        <Col>${price}</Col>
+                        <Col>{price} PKR</Col>
                     </Row>,
                     <Row>
                         <Col>
@@ -54,7 +54,7 @@ const AddToCard = ({ price, countInStock }) => {
                             type='button'
                             disabled={countInStock === 0}
                         >
-                            Add To Card
+                            Add To Cart
                         </Button>
                     </div>,
                 ]}

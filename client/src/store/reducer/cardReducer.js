@@ -8,7 +8,7 @@ const initialState = {
     error: '',
     message: '',
     shippingAddress: {},
-    paymentMethod: ''
+    paymentMethod: '',
 };
 
 export const fetchProductById = createAsyncThunk(
@@ -32,20 +32,32 @@ export const cardSlice = createSlice({
             );
             localStorage.setItem('cardItem', JSON.stringify(state.cardItems));
         },
+        EmptyCard: (state, { payload }) => {
+            state.cardItems = []
+            state.error = ''
+            state.message = '';
+            localStorage.removeItem('cardItem');
+        },
         addShippingAddress: (state, { payload }) => {
-            console.log("shipping address is store in localhost")
-            state.shippingAddress = payload
+            console.log('shipping address is store in localhost');
+            state.shippingAddress = payload;
             localStorage.setItem(
                 'shippingAddress',
                 JSON.stringify(state.shippingAddress)
             );
         },
         addPaymentMethod: (state, { payload }) => {
-            state.paymentMethod = payload
+            state.paymentMethod = payload;
             // localStorage.setItem(
             //     '',
             //     JSON.stringify(state.shippingAddress)
             // );
+        },
+        addItemsPrice: (state, { payload }) => {
+            state.totalPrice = payload.totalPrice;
+            state.taxPrice = payload.tax;
+            state.itemsPrice = payload.itemsPrice;
+            state.shippingPrice = (100).toFixed(2)
         },
     },
     extraReducers: (builder) => {
@@ -92,6 +104,12 @@ export const cardSlice = createSlice({
     },
 });
 
-export const { removeCardItem,addShippingAddress,addPaymentMethod } = cardSlice.actions;
+export const {
+    removeCardItem,
+    addShippingAddress,
+    addPaymentMethod,
+    addItemsPrice,
+    EmptyCard
+} = cardSlice.actions;
 
 export default cardSlice.reducer;

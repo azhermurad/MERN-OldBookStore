@@ -10,14 +10,15 @@ const PaymentPage = () => {
     const { shippingAddress,paymentMethod } = useSelector((state) => state.cardState);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [payment, setPaymentMethod] = useState('PayPal');
+    const [payment, setPaymentMethod] = useState('Stripe');
+    
 
    useEffect(()=>{
     if(Object.keys(shippingAddress).length === 0){
         navigate("/shipping")
     }
    },[])
-console.log(paymentMethod)
+console.log(payment)
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(addPaymentMethod(payment));
@@ -34,8 +35,9 @@ console.log(paymentMethod)
                     <Form.Check
                         className='mb-3'
                         type='radio'
-                        label={`PayPal or Credit Card`}
+                        label={`PayPal`}
                         name='paymentMethod'
+                        defaultChecked
                         value='PayPal'
                         id='PayPal'
                         onChange={(e) => {
@@ -43,16 +45,16 @@ console.log(paymentMethod)
                         }}
                     />
                 </Form.Group>
-                {/* <Form.Check
+                <Form.Check
                     type='radio'
-                    label={`PayPal or Credit Card`}
+                    label={`Credit Card`}
                     name='paymentMethod'
-                    value='Strip'
-                    id='Strip'
+                    value='Stripe'
+                    id='Stripe'
                     onChange={(e) => {
                         setPaymentMethod(e.target.value);
                     }}
-                /> */}
+                />
                 <Button type='submit' className='btn btn-primary' disabled={!payment}>
                     Continue
                 </Button>

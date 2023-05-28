@@ -9,6 +9,7 @@ const initialState = {
     userProfile: {}
 };
 
+
 export const userSlice = createSlice({
     name: 'User',
     initialState,
@@ -17,10 +18,12 @@ export const userSlice = createSlice({
             state.loading = true;
         },
         userLogout: (state)=> {
+            console.log(state)
             localStorage.removeItem("userInfo");
             state.user=null;
             state.error='';
             state.message='';
+            state.userProfile= {}
 
         },
         loginUser(state, { payload }) {

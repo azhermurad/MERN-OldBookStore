@@ -1,25 +1,27 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { Col, Row, ListGroup, Card, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { addItemsPrice } from '../../store/reducer/cardReducer';
 
-const OrderSummary = ({submitHandler}) => {
+const OrderSummary = ({ submitHandler }) => {
     const { cardItems } = useSelector((state) => state.cardState);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    const ref = useRef()
 
     const itemsPrice = cardItems
         ?.reduce((x, item) => x + item.price * item.qty, 0)
         .toFixed(2);
-    const tax = (0.05 * itemsPrice).toFixed(2);
-    const totalPrice = (Number(itemsPrice) + Number(tax) + Number(1)).toFixed(
+    const tax = 0;
+    const totalPrice = (Number(itemsPrice) + Number(tax) + Number(100)).toFixed(
         2
     );
-
-    
+    useEffect(() => {
+        dispatch(addItemsPrice({ itemsPrice, tax, totalPrice }));
+    }, [itemsPrice, tax, totalPrice, dispatch]);
     return (
         <>
-            <Card ref={ref}>
+            <Card>
                 <ListGroup variant='flush'>
                     <ListGroup.Item>
                         <h2>Order Summary</h2>
@@ -27,26 +29,26 @@ const OrderSummary = ({submitHandler}) => {
                     <ListGroup.Item>
                         <Row>
                             <Col>Items</Col>
-                            <Col>${itemsPrice}</Col>
+                            <Col>{itemsPrice}</Col>
                         </Row>
                     </ListGroup.Item>
 
                     <ListGroup.Item>
                         <Row>
                             <Col>Shipping</Col>
-                            <Col>${(1).toFixed(2)}</Col>
+                            <Col>{(100).toFixed(2)}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Row>
                             <Col>Tax</Col>
-                            <Col>${tax}</Col>
+                            <Col>{tax}</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
                         <Row>
                             <Col>Total</Col>
-                            <Col>${totalPrice}</Col>
+                            <Col>{totalPrice} PKR</Col>
                         </Row>
                     </ListGroup.Item>
                     <ListGroup.Item>
@@ -65,7 +67,5 @@ const OrderSummary = ({submitHandler}) => {
         </>
     );
 };
-
-// we have to fetch the card data on this page and add the tax
 
 export default OrderSummary;

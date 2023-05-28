@@ -15,7 +15,7 @@ const CardItem = ({ item, click }) => {
                 <Col md={3}>
                     <Link to={'/products/' + item._id}>{item.name}</Link>
                 </Col>
-                <Col md={2}>${item.price}</Col>
+                <Col md={2}>{item.price} PKR</Col>
                 <Col md={3} className='d-flex'>
                     <div className='px-1'> {item.qty}</div>
                     <Form.Range

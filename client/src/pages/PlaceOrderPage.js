@@ -1,36 +1,68 @@
+import { useEffect } from 'react';
 import { Col, Row, ListGroup, Image } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import CheckoutStep from '../components/checkout/CheckoutStep';
+import Loader from '../components/loader/Loader';
 import Message from '../components/message/Message';
 import OrderSummary from '../components/placeorder/OrderSummary';
+import { createOrder } from '../store/reducer/orderSlice';
+import { EmptyCard } from '../store/reducer/cardReducer';
 
 const PlaceOrderPage = () => {
-    const { cardItems, paymentMethod, shippingAddress } = useSelector(
-        (state) => state.cardState
-    );
+    const dispatch = useDispatch();
     const navigate = useNavigate();
-    console.log(shippingAddress, paymentMethod, cardItems);
+    const {
+        cardItems,
+        paymentMethod,
+        shippingAddress,
+        taxPrice,
+        shippingPrice,
+        totalPrice,
+        itemsPrice,
+    } = useSelector((state) => state.cardState);
+    const { order, message, error, loading } = useSelector(
+        (state) => state.orderState
+    );
 
+    useEffect(() => {
+        if (order) {
+            dispatch(EmptyCard())
+            navigate('/order/' + order._id);
+        }
+    }, [order, navigate,dispatch]);
     const placeOrderHandler = () => {
-        console.log('order is place!');
-
-        // var WinPrint = window.open(
-        //     'a',
-        //     'a',
-        //     'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0'
-        // );
-        // WinPrint.document.write('<h1 style="color:blue;">print</h1>');
-        // WinPrint.document.close();
-        // WinPrint.focus();
-        // WinPrint.print();
-        // WinPrint.close();
+        const items = cardItems?.map((item) => {
+            return {
+                name: item.name,
+                qty: item.qty,
+                image: item.image,
+                price: item.price,
+                product: item._id,
+            };
+        });
+        dispatch(
+            createOrder({
+                orderItems: items,
+                shippingAddress,
+                paymentMethod,
+                taxPrice,
+                shippingPrice,
+                totalPrice,
+                itemsPrice,
+            })
+        );
     };
+
     return (
         <>
             <CheckoutStep step1 step2 step3 step4 />
             <Row>
+                {loading && <Loader />}
+
+                {error && <Message text={error} />}
+                {message && <Message variant='success' text={message} />}
                 <Col md={8}>
                     <ListGroup variant='flush'>
                         <ListGroup.Item>
@@ -44,13 +76,20 @@ const PlaceOrderPage = () => {
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <h2>Payment Method</h2>
-                            <p style={{ textTransform: 'capitalize' }}>
-                                <strong>Method:</strong> {paymentMethod}
-                            </p>
+                            <div style={{ textTransform: 'capitalize' }}>
+                                <strong>Method:</strong>{' '}
+                                {paymentMethod ? (
+                                    paymentMethod
+                                ) : (
+                                    <Message text={`Add Payment Method`}>
+                                        <Link to='/payment'>Payment</Link>
+                                    </Message>
+                                )}
+                            </div>
                         </ListGroup.Item>
                         <ListGroup.Item>
                             <h2>Order Items</h2>
-                            {cardItems.length == 0 ? (
+                            {cardItems.length === 0 ? (
                                 <Message text={'No Items in the Card'} />
                             ) : (
                                 <ListGroup variant='flush'>
@@ -76,11 +115,11 @@ const PlaceOrderPage = () => {
                                                     </Link>
                                                 </Col>
                                                 <Col sm={4}>
-                                                    {`${item.qty} x $${
+                                                    {`${item.qty} x ${
                                                         item.price
-                                                    } = $${(
+                                                    } = ${(
                                                         item.qty * item.price
-                                                    ).toFixed(2)}`}
+                                                    ).toFixed(2)} PKR`}
                                                 </Col>
                                             </Row>
                                         </ListGroup.Item>

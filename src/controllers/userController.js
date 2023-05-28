@@ -72,7 +72,8 @@ const userLogin = async (req, res) => {
 const userProfile = async (req, res) => {
     
     try {
-        const user = await User.findById(req.user._id);
+        const user = await User.findById(req.user._id).populate("products");
+        console.log("ddd",user.products)
 
         res.status(200).json({
             status: 'Success',
