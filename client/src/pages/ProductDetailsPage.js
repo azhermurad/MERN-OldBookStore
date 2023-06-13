@@ -77,7 +77,11 @@ const ProductDetails = () => {
                             />
                         </Col>
                         <Col md={3}>
-                            {product?.userId?.isAdmin ? (
+                        <AddToCard
+                                    price={product?.price}
+                                    countInStock={product?.countInStock}
+                                />
+                            {/* {product?.userId?.isAdmin ? (
                                 <AddToCard
                                     price={product?.price}
                                     countInStock={product?.countInStock}
@@ -90,7 +94,7 @@ const ProductDetails = () => {
                                 >
                                     Contact With Seller
                                 </Button>
-                            )}
+                            )} */}
                             <Modal
                                 show={show}
                                 onHide={handleClose}

@@ -10,13 +10,14 @@ router.post('/api/create-checkout-session/:id', async (req, res) => {
     const books = await Order.findById(id);
 
     const customer = await stripe.customers.create({
+        // this email is the defaut email for all the user in the database 
         // email: 'azher@gmail.com',
         metadata: {
             orderId: id,
         },
     });
 
-    const session = await stripe.checkout.sessions.create({
+    const session = await stripe.checkout.sessions.create({ 
         shipping_options: [
             {
                 shipping_rate_data: {
@@ -177,5 +178,4 @@ router.post(
     }
 );
 module.exports = router;
-
 
