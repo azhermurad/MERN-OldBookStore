@@ -1,2 +1,2 @@
-# MERN-OldBookStore
+# MERN-OldBookStore e-commerce website
 
